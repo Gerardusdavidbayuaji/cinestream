@@ -1,7 +1,12 @@
-import { Button } from "../components/ui/button";
 import React from "react";
+import MovieCardPages from "@/components/element/MovieCardPages";
+
 const Home = () => {
-  return <div>test</div>;
+  return (
+    <>
+      <MovieCardPages />
+    </>
+  );
 };
 
 export default Home;

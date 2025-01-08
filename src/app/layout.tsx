@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "@/styles/globals.css";
+import Layouts from "@/components/layouts";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -13,14 +14,16 @@ export const metadata: Metadata = {
   description: "Welcome to Cinestream",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
+interface RootLayoutProps {
   children: React.ReactNode;
-}>) {
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
-      <body className={`${poppins.variable} antialiased`}>{children}</body>
+      <body className={`${poppins.variable} antialiased`}>
+        <Layouts>{children}</Layouts>
+      </body>
     </html>
   );
 }

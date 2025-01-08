@@ -1,4 +1,5 @@
 import React from "react";
+import SearchBox from "@/components/element/SearchBox";
 
 const Navbar = () => {
   return (
@@ -6,7 +7,7 @@ const Navbar = () => {
       <nav className="container flex items-center justify-between py-4 bg-amber-100">
         <h1 className="bg-red-300">Cinestream.</h1>
         <div className="bg-red-400 flex space-x-4">
-          <p>search box</p>
+          <SearchBox />
           <div>logo theme</div>
         </div>
       </nav>

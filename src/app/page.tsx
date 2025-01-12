@@ -1,10 +1,13 @@
 import React from "react";
-import MovieCardPages from "@/components/element/MovieCardPages";
+import CarouselHeader from "@/modules/home/components/CarouselHeader";
+import ReactQueryProvider from "@/services/providers/react-query-provider";
 
 const Home = () => {
   return (
     <>
-      <MovieCardPages />
+      <ReactQueryProvider>
+        <CarouselHeader />
+      </ReactQueryProvider>
     </>
   );
 };

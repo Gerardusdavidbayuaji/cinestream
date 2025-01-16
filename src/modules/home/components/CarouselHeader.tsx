@@ -51,7 +51,7 @@ const CarouselHeader = () => {
       onMouseLeave={() => plugin.current.play()}
     >
       <CarouselContent className="h-[720px] relative">
-        {data?.results.slice(5, 10).map((movie) => (
+        {data?.results.slice(10, 15).map((movie) => (
           <CarouselItem key={movie.id} className="-ml-[1px]">
             <MovieCardHeader data={movie} />
           </CarouselItem>

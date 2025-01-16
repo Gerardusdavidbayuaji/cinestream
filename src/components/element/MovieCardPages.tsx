@@ -1,70 +1,33 @@
 import React from "react";
+import { Movie } from "@/services/apis/movies";
 import Image from "next/image";
-import { UserCircle } from "lucide-react";
+import { formatDate } from "@/utils/formatter";
 
-const MovieCardPages = () => {
+interface Props {
+  data: Movie;
+  href?: string;
+}
+
+const MovieCardPages = (props: Props) => {
+  const { data, href } = props;
+  const { title, poster_path, release_date } = data;
+
   return (
-    <div className="w-full relative h-[720px]">
+    <div className="w-full h-auto scale-100 hover:scale-[1.01] rounded-md transition-all duration-200">
       <Image
-        src="/carousel-demo.jpeg"
+        src={`https://image.tmdb.org/t/p/w500${poster_path}`}
         priority
-        alt="movie-card-demo"
+        alt={title}
         width="0"
-        height="0"
+        height="100"
         sizes="100vw"
-        className="w-full h-[720px] object-cover object-top"
+        className="relative w-full h-full rounded"
       />
-      <div className="absolute px-6 md:px-8 lg:px-20 pb-10 md:pb-0 top-0 w-full h-[720px] bg-gradient-to-l from-black/0 to-black flex items-end md:items-center justify-center md:justify-start">
-        <div className="hidden md:block">
-          <div className="flex flex-col w-1/2 lg:w-1/4">
-            <h1 className="flex flex-col gap-y-3">
-              <span className="text-xl font-semibold text-white md:text-4xl">
-                The Witcher
-              </span>
-              <span className="flex items-center gap-x-2">
-                <span className="p-1 text-xs font-bold text-black bg-yellow-500 rounded w-fit">
-                  IMDB
-                </span>
-                <span className="mr-4 md:mr-8 text-slate-300">9.9</span>
-                <span className="flex items-center gap-1 text-sm text-slate-300">
-                  <UserCircle size={16} />
-                  1000
-                  <span>votes</span>
-                </span>
-              </span>
-              <span className="text-base font-light text-slate-100">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet
-                tempora modi dolores ratione adipisci facilis doloremque
-                explicabo magni labore a iure incidunt, cum autem libero vel
-                culpa repudiandae nemo quisquam!
-              </span>
-            </h1>
-          </div>
-        </div>
-        <div className="block md:hidden">
-          <h1 className="flex flex-col items-center w-full gap-y-3">
-            <span className="text-3xl font-semibold text-center text-white">
-              The Witcher
-            </span>
-            <span className="flex items-center gap-x-2">
-              <span className="p-1 text-xs font-bold text-black bg-yellow-500 rounded w-fit">
-                IMDB
-              </span>
-              <span className="mr-4 text-slate-300">9.9</span>
-              <span className="flex items-center gap-1 text-sm text-slate-300">
-                <UserCircle size={16} />
-                1000
-                <span>votes</span>
-              </span>
-            </span>
-            <span className="text-xs font-light text-justify text-slate-100">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet
-              tempora modi dolores ratione adipisci facilis doloremque explicabo
-              magni labore a iure incidunt, cum autem libero vel culpa
-              repudiandae nemo quisquam!
-            </span>
-          </h1>
-        </div>
+      <div className="absolute bottom-0 flex flex-col justify-end w-full h-full p-4 rounded bg-gradient-to-t from-black/80 to-black/0">
+        <h1 className="font-medium text-white truncate">{title}</h1>
+        <p className="text-xs font-light text-slate-300">
+          {formatDate(release_date!)}
+        </p>
       </div>
     </div>
   );

@@ -9,7 +9,8 @@ interface DetailPageProps {
 }
 
 const DetailPage = async ({ params }: DetailPageProps) => {
-  const movie = await getDetailMovies(params.id);
+  const { id } = await params;
+  const movie = await getDetailMovies(id);
   return (
     <div>
       <Container>

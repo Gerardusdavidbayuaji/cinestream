@@ -15,7 +15,6 @@ const Detail = ({ movie }: DetailProps) => {
       <Trailer data={movie} />
       <Separator className="my-6" />
       <Info data={movie} />
-      <Separator className="my-6" />
     </>
   );
 };

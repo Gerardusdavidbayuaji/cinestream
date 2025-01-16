@@ -31,6 +31,8 @@ const Trailer = ({ data }: TrailerProps) => {
             </CarouselItem>
           ))}
         </CarouselContent>
+        <CarouselPrevious />
+        <CarouselNext />
       </Carousel>
     </section>
   );

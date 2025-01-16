@@ -1,5 +1,5 @@
-import { getPopulerMovies, getMoviesbyList } from "./api";
-import { Movie } from "./type";
+import { getPopulerMovies, getMoviesbyList, getDetailMovies } from "./api";
+import { Movie, MovieDetail, MovieVidsType } from "./type";
 
-export { getPopulerMovies, getMoviesbyList };
-export type { Movie };
+export { getPopulerMovies, getMoviesbyList, getDetailMovies };
+export type { Movie, MovieDetail, MovieVidsType };

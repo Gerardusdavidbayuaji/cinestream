@@ -7,3 +7,13 @@ export const formatDate = (date: Date | string): string => {
     return "~";
   }
 };
+
+export const formatRunTime = (total_time: number): string => {
+  if (total_time !== undefined) {
+    const hours = Math.floor(total_time / 60);
+    const minutes = total_time % 60;
+    return `${hours}H, ${minutes}Min`;
+  } else {
+    return "-";
+  }
+};

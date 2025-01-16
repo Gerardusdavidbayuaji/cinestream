@@ -17,7 +17,7 @@ const Popular = ({ title, datas }: PopularProps) => {
       <ul className="grid grid-cols-2 gap-6 pt-6 mb-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {datas?.results.map((movie) => (
           <li key={movie.id}>
-            <MovieCardPages data={movie} />
+            <MovieCardPages data={movie} href={`/movies/detail/${movie.id}`} />
           </li>
         ))}
       </ul>

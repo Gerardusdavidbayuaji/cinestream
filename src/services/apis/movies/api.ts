@@ -12,9 +12,16 @@ export const getMoviesbyList = async (params?: Request) => {
   return response.data as Response<Movie[]>;
 };
 
-export const getDetailMovies = async (movie_id: number) => {
+export const getDetailMovie = async (movie_id: number) => {
   const response = await axiosWithConfig.get(
     `/movie/${movie_id}?append_to_response=videos`
   );
   return response.data as MovieDetail;
+};
+
+export const getMovies = async (params?: Request) => {
+  const response = await axiosWithConfig.get(
+    `/search/movie?query=${params?.title}`
+  );
+  return response.data as Response<Movie[]>;
 };

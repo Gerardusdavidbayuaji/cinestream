@@ -1,14 +1,15 @@
 import React from "react";
-import MovieCardPages from "@/components/element/MovieCardPages";
-import { Response } from "@/cammon/types/api";
+
 import { Movie } from "@/services/apis/movies/type";
+import { Response } from "@/cammon/types/api";
+
+import MovieCardPages from "@/components/element/MovieCardPages";
 
 interface PopularProps {
-  title?: string;
   datas: Response<Movie[]>;
 }
 
-const Popular = ({ title, datas }: PopularProps) => {
+const Popular = ({ datas }: PopularProps) => {
   return (
     <div>
       <div className="flex items-center justify-start">

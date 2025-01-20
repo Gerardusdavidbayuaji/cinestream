@@ -1,5 +1,4 @@
 import React from "react";
-import ReactQueryProvider from "@/services/providers/react-query-provider";
 import Home from "@/modules/home";
 import { getMoviesbyList } from "@/services/apis/movies";
 
@@ -11,14 +10,12 @@ const HomePage = async () => {
 
   return (
     <>
-      <ReactQueryProvider>
-        <Home
-          popular={popular}
-          now_playing={now_playing}
-          top_rated={top_rated}
-          upcoming={upcoming}
-        />
-      </ReactQueryProvider>
+      <Home
+        popular={popular}
+        now_playing={now_playing}
+        top_rated={top_rated}
+        upcoming={upcoming}
+      />
     </>
   );
 };

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { getDetailMovies } from "@/services/apis/movies";
+import { getDetailMovie } from "@/services/apis/movies";
 import Container from "@/components/element/Container";
 import Detail from "@/modules/movies";
 
@@ -10,7 +10,7 @@ interface DetailPageProps {
 
 const DetailPage = async ({ params }: DetailPageProps) => {
   const { id } = await params;
-  const movie = await getDetailMovies(id);
+  const movie = await getDetailMovie(id);
   return (
     <div>
       <Container>

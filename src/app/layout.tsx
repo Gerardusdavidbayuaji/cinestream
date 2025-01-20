@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "@/styles/globals.css";
+
+import ReactQueryProvider from "@/services/providers/react-query-provider";
+import ThemeProvider from "@/services/providers/them-providers";
 import Layouts from "@/components/layouts";
 
 const poppins = Poppins({
@@ -20,9 +23,18 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${poppins.variable} antialiased`}>
-        <Layouts>{children}</Layouts>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <ReactQueryProvider>
+            <Layouts>{children}</Layouts>
+          </ReactQueryProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

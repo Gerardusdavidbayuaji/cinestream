@@ -1,11 +1,13 @@
 import React from "react";
-import Popular from "./Popular";
-import NowPlaying from "./NowPlaying";
-import Container from "@/components/element/Container";
+
 import { Response } from "@/cammon/types/api";
 import { Movie } from "@/services/apis/movies/type";
-import TopRated from "./TopRated";
+
+import Container from "@/components/element/Container";
+import NowPlaying from "./NowPlaying";
 import Upcoming from "./UpComing";
+import TopRated from "./TopRated";
+import Popular from "./Popular";
 
 interface MovieListProps {
   dataPopular: Response<Movie[]>;

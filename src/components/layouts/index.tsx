@@ -1,14 +1,26 @@
-import React from "react";
+"use client";
 
-import { Toaster } from "@/components/ui/toaster";
+import React, { useEffect } from "react";
+import AOS from "aos";
+
 import Navbar from "./navbar";
 import Footer from "./footer";
+import { Toaster } from "@/components/ui/toaster";
+
+import "aos/dist/aos.css";
 
 interface LayoutsProps {
   children: React.ReactNode;
 }
 
-const Layouts = ({ children }: LayoutsProps) => {
+export default function Layouts({ children }: LayoutsProps) {
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      delay: 50,
+    });
+  }, []);
+
   return (
     <div className="flex flex-col justify-center">
       <div className="flex flex-col justify-center w-full min-h-screen overflow-auto">
@@ -21,6 +33,4 @@ const Layouts = ({ children }: LayoutsProps) => {
       </div>
     </div>
   );
-};
-
-export default Layouts;
+}

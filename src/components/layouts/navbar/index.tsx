@@ -1,11 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
-import SearchBox from "@/components/element/SearchBox";
+import { useTheme } from "next-themes";
+import Link from "next/link";
+
 import { MoonIcon, SunIcon } from "lucide-react";
 
-const Navbar = () => {
-  const [theme, setTheme] = useState("light");
+import SearchBox from "@/components/element/SearchBox";
+
+export default function Navbar() {
+  const { setTheme, theme } = useTheme();
 
   function handleTheme() {
     const newTheme = theme === "light" ? "dark" : "light";
@@ -13,12 +16,14 @@ const Navbar = () => {
   }
 
   return (
-    <header className="sticky top-0 z-10 w-full bg-black/50 backdrop-blur-sm">
-      <nav className="container flex justify-between items-center py-4">
-        <h1 className="text-2xl font-semibold tracking-widest text-white">
-          Cinestream.
-        </h1>
-        <div className="flex space-x-4 justify-center items-center">
+    <header className="sticky top-0 z-10 w-full dark:bg-black/50 backdrop-blur-sm">
+      <nav className="container flex items-center justify-between py-4">
+        <Link href="/">
+          <h1 className="text-2xl font-semibold tracking-widest text-white">
+            CineStream.
+          </h1>
+        </Link>
+        <div className="flex items-center justify-end w-1/2 gap-x-4">
           <SearchBox />
           <div
             onClick={() => handleTheme()}
@@ -34,6 +39,4 @@ const Navbar = () => {
       </nav>
     </header>
   );
-};
-
-export default Navbar;
+}

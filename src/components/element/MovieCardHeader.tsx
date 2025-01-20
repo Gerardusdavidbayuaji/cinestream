@@ -1,7 +1,11 @@
 import React from "react";
+
 import Image from "next/image";
-import { UserCircle } from "lucide-react";
+import Link from "next/link";
+
 import { Movie } from "@/services/apis/movies/type";
+
+import { UserCircle } from "lucide-react";
 
 type Props = {
   data: Movie;
@@ -9,7 +13,10 @@ type Props = {
 
 const MovieCardHeader = ({ data }: Props) => {
   return (
-    <div className="w-full relative h-[720px]">
+    <Link
+      href={`/movies/detail/${data.id}`}
+      className="w-full relative h-[720px]"
+    >
       <Image
         src={`https://image.tmdb.org/t/p/original${data.backdrop_path}`}
         priority
@@ -69,7 +76,7 @@ const MovieCardHeader = ({ data }: Props) => {
           </h1>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

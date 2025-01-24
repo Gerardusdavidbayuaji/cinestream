@@ -3,7 +3,7 @@
 import { useTheme } from "next-themes";
 import Link from "next/link";
 
-import { MoonIcon, SunIcon } from "lucide-react";
+import { MoonIcon, SunIcon, LucideHeart } from "lucide-react";
 
 import SearchBox from "@/components/element/SearchBox";
 
@@ -25,6 +25,9 @@ export default function Navbar() {
         </Link>
         <div className="flex items-center justify-end w-1/2 gap-x-4">
           <SearchBox />
+          <Link href="/movies/favorite">
+            <LucideHeart className="border border-slate-300 h-[40px] w-[40px] p-2 rounded-md shadow-md" />
+          </Link>
           <div
             onClick={() => handleTheme()}
             className="bg-transparent rounded-md cursor-pointer text-slate-300"

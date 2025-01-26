@@ -1,16 +1,42 @@
-import React from "react";
+"use client";
 
-import { UserCircle } from "lucide-react";
 import Image from "next/image";
+
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/services/store/store";
+
+import {
+  addToFavorite,
+  removeFromFavorite,
+} from "@/services/store/favoriteSlice";
+
+import { UserCircle, Plus, Check } from "lucide-react";
 
 import { formatDate, formatRunTime } from "@/utils/formatter";
 import { MovieDetail } from "@/services/apis/movies";
+
+import { Button } from "@/components/ui/button";
 
 interface InfoProps {
   data: MovieDetail;
 }
 
 const Info = ({ data: movie }: InfoProps) => {
+  const dispatch = useDispatch();
+  const favorites = useSelector(
+    (state: RootState) => state.favorites.favorites
+  );
+
+  const isFavorite = favorites.some((fav) => fav.id === movie.id);
+
+  const handleFavoriteToggle = () => {
+    if (isFavorite) {
+      dispatch(removeFromFavorite(movie.id));
+    } else {
+      dispatch(addToFavorite(movie));
+    }
+  };
+
   return (
     <div className="flex flex-col w-full gap-6 p-6 mb-6 h-fit">
       <div className="flex w-full gap-6">
@@ -22,12 +48,21 @@ const Info = ({ data: movie }: InfoProps) => {
           className="hidden md:block"
         />
         <div className="flex flex-col justify-between w-full">
-          <h1 className="flex flex-col text-2xl font-semibold leading-none">
-            <span>{movie.title}</span>
-            <span className="text-base font-light dark:text-slate-100 ">
-              {movie.tagline}
-            </span>
-          </h1>
+          <div className="flex justify-between">
+            <h1 className="flex flex-col text-2xl font-semibold leading-none">
+              <span>{movie.title}</span>
+              <span className="text-base font-light dark:text-slate-100 ">
+                {movie.tagline}
+              </span>
+            </h1>
+            <Button
+              variant={isFavorite ? "secondary" : "destructive"}
+              onClick={handleFavoriteToggle}
+              className="hover:bg-[#801d1d]/80 p-2"
+            >
+              {isFavorite ? <Check /> : <Plus />}
+            </Button>
+          </div>
           <p className="space-x-2 text-xs font-light dark:text-slate-200">
             <span className="dark:text-slate-400">
               {formatDate(movie.release_date)}

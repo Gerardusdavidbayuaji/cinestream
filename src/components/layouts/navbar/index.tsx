@@ -26,7 +26,7 @@ export default function Navbar() {
         <div className="flex items-center justify-end w-1/2 gap-x-4">
           <SearchBox />
           <Link href="/movies/favorite">
-            <LucideHeart className="border border-slate-300 h-[40px] w-[40px] p-2 rounded-md shadow-md" />
+            <LucideHeart className="border bg-transparent text-slate-300 border-slate-300 h-[40px] w-[40px] p-2 rounded-md shadow-md" />
           </Link>
           <div
             onClick={() => handleTheme()}

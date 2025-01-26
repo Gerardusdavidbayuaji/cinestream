@@ -1,52 +1,71 @@
-import React from "react";
+"use client";
 
-import { Movie } from "@/services/apis/movies";
-import { Response } from "@/cammon/types/api";
-import MovieCard from "@/components/element/MovieCard";
-import {
-  CarouselPrevious,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  Carousel,
-} from "@/components/ui/carousel";
+import { useDispatch, useSelector } from "react-redux";
+import Image from "next/image";
+import Link from "next/link";
 
-interface ContainerCardProps {
-  title?: string;
-  datas?: Response<Movie[]>;
-}
+import { removeFromFavorite } from "@/services/store/favoriteSlice";
+import { RootState } from "@/services/store/store";
+import { formatDate } from "@/utils/formatter";
 
-const FavoriteCard = ({ title, datas }: ContainerCardProps) => {
+import { Badge } from "@/components/ui/badge";
+import { Check } from "lucide-react";
+
+const FavoriteCard = () => {
+  const dispatch = useDispatch();
+  const favorites = useSelector(
+    (state: RootState) => state.favorites.favorites
+  );
+
+  const handleRemoveToggle = (id: number) => {
+    dispatch(removeFromFavorite(id));
+  };
+
   return (
-    <div>
-      <Carousel
-        opts={{
-          align: "start",
-          loop: true,
-        }}
-        className="w-full h-auto rounded-md"
-      >
-        <div className="flex items-center justify-between">
-          <p className="pl-4 border-l-4 border-red-600">{title}</p>
-          <div className="flex items-center gap-x-8">
-            <div>
-              <CarouselPrevious className="relative top-0 w-6 h-6 -left-2 -translate-y-0" />
-              <CarouselNext className="relative top-0 w-6 h-6 -right-0 -translate-y-0" />
-            </div>
-          </div>
-        </div>
-        <CarouselContent className="py-4">
-          {datas?.results.map((movie) => (
-            <CarouselItem
+    <>
+      {favorites.length === 0 ? (
+        <Link href="/">
+          <Badge className="flex justify-center items-center bg-red-600 hover:bg-red-600/80">
+            <p className="text-white">No favorite movie yet.</p>
+          </Badge>
+        </Link>
+      ) : (
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+          {favorites.map((movie) => (
+            <div
               key={movie.id}
-              className="basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/6"
+              className="w-full h-full flex flex-col scale-100 hover:scale-[1.01] rounded-md transition-all duration-200 bg-slate-300"
             >
-              <MovieCard data={movie} href={`/movies/detail/${movie.id}`} />
-            </CarouselItem>
+              <Image
+                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                priority
+                alt={movie.title}
+                width="0"
+                height="0"
+                sizes="100vw"
+                className="relative object-cover w-full h-full rounded"
+              />
+              <div className="flex absolute top-0 w-full p-4 justify-end cursor-pointer">
+                <div
+                  onClick={() => handleRemoveToggle(movie.id)}
+                  className="hover:bg-[#801d1d]/80 bg-secondary/80 rounded-md p-1"
+                >
+                  <Check />
+                </div>
+              </div>
+              <div className="flex flex-col justify-end absolute bottom-0 bg-gradient-to-t from-black/70 to-black/0 h-[200px] w-full rounded p-4">
+                <h1 className="font-medium text-white truncate">
+                  {movie.title}
+                </h1>
+                <p className="text-xs font-light text-slate-300">
+                  {formatDate(movie.release_date!)}
+                </p>
+              </div>
+            </div>
           ))}
-        </CarouselContent>
-      </Carousel>
-    </div>
+        </div>
+      )}
+    </>
   );
 };
 

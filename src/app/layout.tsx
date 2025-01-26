@@ -1,9 +1,11 @@
-import type { Metadata } from "next";
+"use client";
+
+import Head from "next/head";
+
 import { Poppins } from "next/font/google";
 import "@/styles/globals.css";
 
-import ReactQueryProvider from "@/services/providers/react-query-provider";
-import ThemeProvider from "@/services/providers/them-providers";
+import ClientProviders from "@/services/providers/client-providers";
 import Layouts from "@/components/layouts";
 
 const poppins = Poppins({
@@ -12,11 +14,6 @@ const poppins = Poppins({
   weight: ["100", "200", "400", "500", "600", "700"],
 });
 
-export const metadata: Metadata = {
-  title: "Cinestream",
-  description: "Welcome to Cinestream",
-};
-
 interface RootLayoutProps {
   children: React.ReactNode;
 }
@@ -24,17 +21,14 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <Head>
+        <title>Cinestream</title>
+        <meta name="Cinestream" content="Welcome to Cinestream" />
+      </Head>
       <body className={`${poppins.variable} antialiased`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <ReactQueryProvider>
-            <Layouts>{children}</Layouts>
-          </ReactQueryProvider>
-        </ThemeProvider>
+        <ClientProviders>
+          <Layouts>{children}</Layouts>
+        </ClientProviders>
       </body>
     </html>
   );

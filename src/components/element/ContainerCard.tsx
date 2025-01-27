@@ -14,7 +14,7 @@ import {
 
 interface ContainerCardProps {
   title: string;
-  datas: Response<Movie[]>;
+  datas: Response<Movie[]> | null;
 }
 
 const ContainerCard = ({ title, datas }: ContainerCardProps) => {

@@ -1,14 +1,11 @@
 import React from "react";
 
-import { Movie } from "@/services/apis/movies";
-import { Response } from "@/cammon/types/api";
+import { useSelector } from "react-redux";
+import { RootState } from "@/services/store/store";
 
 import ContainerCard from "@/components/element/ContainerCard";
 
-interface TopRatedProps {
-  datas: Response<Movie[]>;
-}
-
-export default function TopRated({ datas }: TopRatedProps) {
-  return <ContainerCard title="Top Rated" datas={datas} />;
+export default function TopRated() {
+  const topRated = useSelector((state: RootState) => state.movies.topRated);
+  return <ContainerCard title="Top Rated" datas={topRated} />;
 }

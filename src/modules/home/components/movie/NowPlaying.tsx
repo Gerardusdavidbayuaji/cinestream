@@ -1,16 +1,12 @@
 import React from "react";
 
-import { Movie } from "@/services/apis/movies";
-import { Response } from "@/cammon/types/api";
-
+import { useSelector } from "react-redux";
+import { RootState } from "@/services/store/store";
 import ContainerCard from "@/components/element/ContainerCard";
 
-interface NowPlayingProps {
-  datas: Response<Movie[]>;
-}
-
-const NowPlaying = ({ datas }: NowPlayingProps) => {
-  return <ContainerCard title="Now Playing" datas={datas} />;
+const NowPlaying = () => {
+  const nowPlaying = useSelector((state: RootState) => state.movies.nowPlaying);
+  return <ContainerCard title="Now Playing" datas={nowPlaying} />;
 };
 
 export default NowPlaying;

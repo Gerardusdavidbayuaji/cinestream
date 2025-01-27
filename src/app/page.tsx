@@ -1,10 +1,12 @@
 "use client";
 
-import React, { useEffect } from "react";
-import Home from "@/modules/home";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchMovies } from "@/services/store/movieSlice";
+import { useEffect } from "react";
+
 import { AppDispatch, RootState } from "@/services/store/store";
+import { fetchMovies } from "@/services/store/movieSlice";
+
+import Home from "@/modules/home";
 
 const HomePage = () => {
   const dispatch = useDispatch<AppDispatch>();

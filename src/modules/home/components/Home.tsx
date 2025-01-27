@@ -1,24 +1,17 @@
 import React from "react";
 import MovieList from "./movie/MovieList";
 import CarouselHeader from "./CarouselHeader";
-// import { Response } from "@/cammon/types/api";
-// import { Movie } from "@/services/apis/movies/type";
+import { Response } from "@/cammon/types/api";
+import { Movie } from "@/services/apis/movies/type";
 
-import { useSelector } from "react-redux";
-import { RootState } from "@/services/store/store";
+interface HomeProps {
+  popular: Response<Movie[]> | null;
+  nowPlaying: Response<Movie[]> | null;
+  topRated: Response<Movie[]> | null;
+  upcoming: Response<Movie[]> | null;
+}
 
-// interface HomeProps {
-//   popular: Response<Movie[]>;
-//   now_playing: Response<Movie[]>;
-//   top_rated: Response<Movie[]>;
-//   upcoming: Response<Movie[]>;
-// }
-
-const Home = () => {
-  const { popular, nowPlaying, topRated, upcoming } = useSelector(
-    (state: RootState) => state.movies
-  );
-
+const Home = ({ popular, nowPlaying, topRated, upcoming }: HomeProps) => {
   return (
     <>
       <CarouselHeader />

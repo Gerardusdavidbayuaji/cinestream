@@ -19,7 +19,7 @@ export default function Navbar() {
     <header className="sticky top-0 z-10 w-full dark:bg-black/50 backdrop-blur-sm">
       <nav className="container flex items-center justify-between py-4">
         <Link href="/">
-          <h1 className="text-2xl font-semibold tracking-widest text-black dark:text-white">
+          <h1 className="text-2xl font-semibold tracking-widest text-white">
             CineStream.
           </h1>
         </Link>

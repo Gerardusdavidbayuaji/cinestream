@@ -1,6 +1,8 @@
 "use client";
 
 import { useDispatch, useSelector } from "react-redux";
+import { useToast } from "@/hooks/use-toast";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -16,10 +18,25 @@ const FavoriteCard = () => {
   const favorites = useSelector(
     (state: RootState) => state.favorites.favorites
   );
+  const [isClient, setIsClient] = useState(false);
+  const { toast } = useToast();
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const handleRemoveToggle = (id: number) => {
     dispatch(removeFromFavorite(id));
+
+    toast({
+      title: "Deleted Movie",
+      description:
+        "The movie has been successfully removed from the favorites list.",
+      variant: "destructive",
+    });
   };
+
+  if (!isClient) return null;
 
   return (
     <>

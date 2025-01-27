@@ -4,6 +4,7 @@ import Image from "next/image";
 
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/services/store/store";
+import { useToast } from "@/hooks/use-toast";
 
 import {
   addToFavorite,
@@ -26,14 +27,28 @@ const Info = ({ data: movie }: InfoProps) => {
   const favorites = useSelector(
     (state: RootState) => state.favorites.favorites
   );
-
   const isFavorite = favorites.some((fav) => fav.id === movie.id);
+  const { toast } = useToast();
 
   const handleFavoriteToggle = () => {
     if (isFavorite) {
       dispatch(removeFromFavorite(movie.id));
+
+      toast({
+        title: "Deleted Movie",
+        description:
+          "The movie has been successfully removed from the favorites list.",
+        variant: "destructive",
+      });
     } else {
       dispatch(addToFavorite(movie));
+
+      toast({
+        title: "Added Movie",
+        description:
+          "The movie has been successfully added to the favorites list.",
+        variant: "default",
+      });
     }
   };
 

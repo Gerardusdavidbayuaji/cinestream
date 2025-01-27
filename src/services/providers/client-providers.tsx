@@ -7,6 +7,7 @@ import { store } from "../store/store";
 
 import ReactQueryProvider from "./react-query-provider";
 import ThemeProvider from "./them-providers";
+import { Toaster } from "@/components/ui/toaster";
 
 interface ClientProvidersProps {
   children: ReactNode;
@@ -22,6 +23,7 @@ export default function ClientProviders({ children }: ClientProvidersProps) {
         disableTransitionOnChange
       >
         <ReactQueryProvider>{children}</ReactQueryProvider>
+        <Toaster />
       </ThemeProvider>
     </Provider>
   );

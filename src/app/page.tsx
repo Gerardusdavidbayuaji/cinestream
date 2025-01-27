@@ -2,35 +2,28 @@
 
 import React, { useEffect } from "react";
 import Home from "@/modules/home";
-import { getMoviesbyList } from "@/services/apis/movies";
-import { setMovies } from "@/services/store/movieSlice";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/services/store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchMovies } from "@/services/store/movieSlice";
+import { AppDispatch, RootState } from "@/services/store/store";
 
-const HomePage = async () => {
+const HomePage = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const { popular, nowPlaying, topRated, upcoming } = useSelector(
+    (state: RootState) => state.movies
+  );
 
   useEffect(() => {
-    const fetchMovies = async () => {
-      const popular = await getMoviesbyList({ list: "popular" });
-      const nowPlaying = await getMoviesbyList({ list: "now_playing" });
-      const topRated = await getMoviesbyList({ list: "top_rated" });
-      const upcoming = await getMoviesbyList({ list: "upcoming" });
-
-      dispatch(
-        setMovies({
-          popular,
-          nowPlaying,
-          topRated,
-          upcoming,
-        })
-      );
-    };
-
-    fetchMovies();
+    dispatch(fetchMovies());
   }, [dispatch]);
 
-  return <Home />;
+  return (
+    <Home
+      popular={popular}
+      nowPlaying={nowPlaying}
+      topRated={topRated}
+      upcoming={upcoming}
+    />
+  );
 };
 
 export default HomePage;

@@ -4,7 +4,7 @@ import {
   getDetailMovie,
   getMovies,
 } from "./api";
-import { Movie, MovieDetail, MovieVidsType } from "./type";
+import { Movie, MovieDetail, MovieVidsType, Request, Response } from "./type";
 
 export { getPopulerMovies, getMoviesbyList, getDetailMovie, getMovies };
-export type { Movie, MovieDetail, MovieVidsType };
+export type { Movie, MovieDetail, MovieVidsType, Request, Response };

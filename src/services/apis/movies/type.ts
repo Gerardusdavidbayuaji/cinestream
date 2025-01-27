@@ -1,3 +1,21 @@
+export interface Request {
+  title?: string;
+  list?: string;
+  genre_id?: number;
+  page?: string | number;
+}
+
+export interface Response<T = any> {
+  dates: {
+    maximum: string;
+    minimum: string;
+  };
+  page: number;
+  results: T;
+  total_pages: number;
+  total_results: number;
+}
+
 export interface Movie {
   adult: boolean;
   backdrop_path: string;
@@ -7,7 +25,6 @@ export interface Movie {
   overview: string;
   popularity: number;
   poster_path: string;
-  // release_date: Date | string;
   release_date: string;
   title: string;
   video: boolean;

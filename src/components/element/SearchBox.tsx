@@ -1,28 +1,24 @@
-import { useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 
+import { getMovies } from "@/services/apis/movies";
 import debounce from "lodash.debounce";
-
-import { Button } from "../ui/button";
-import { Search, Star } from "lucide-react";
 import Image from "next/image";
 
 import { Command, CommandGroup } from "@/components/ui/command";
-
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 import {
   PopoverTrigger,
   PopoverContent,
   Popover,
 } from "@/components/ui/popover";
 
-import { getMovies } from "@/services/apis/movies";
-import { Input } from "../ui/input";
+import { Search, Star } from "lucide-react";
 
 interface Movie {
-  id: number;
+  movie_id: number;
   title: string;
-  overview: string;
   poster_path: string | null;
-  release_date: string;
   vote_average: number;
 }
 
@@ -31,32 +27,31 @@ const SearchBox = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [query, setQuery] = useState<string>("");
 
-  const fetchMovies = async (searchQuery: string) => {
-    try {
-      const data = await getMovies({ title: searchQuery });
-      setResults(data.results || []);
-    } catch (error) {
-      console.error("Error fetching movies:", error);
+  const getSuggestions = useCallback(async (searchQuery: string) => {
+    if (!searchQuery) {
       setResults([]);
     }
-  };
 
-  // const debouncedFetchMovies = useCallback(
-  //   debounce((searchQuery: string) => fetchMovies(searchQuery), 300),
-  //   [fetchMovies]
-  // );
+    const response = await getMovies({
+      title: searchQuery,
+    });
 
-  const debouncedFetchMovies = useCallback(
-    debounce(async (searchQuery: string) => {
-      try {
-        const data = await getMovies({ title: searchQuery });
-        setResults(data.results || []);
-      } catch (error) {
-        console.error("Error fetching movies:", error);
-        setResults([]);
-      }
-    }, 300),
-    []
+    const newDatas =
+      response.results.map((data) => {
+        return {
+          title: data.title,
+          movie_id: data.id,
+          poster_path: data.poster_path,
+          vote_average: data.vote_average,
+        };
+      }) ?? [];
+    setResults(newDatas);
+    setQuery(searchQuery);
+  }, []);
+
+  const getSuggestionsDebounce = React.useMemo(
+    () => debounce(getSuggestions, 300),
+    [getSuggestions]
   );
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,7 +59,7 @@ const SearchBox = () => {
     setQuery(value);
 
     if (value.trim()) {
-      debouncedFetchMovies(value);
+      getSuggestionsDebounce(value);
     } else {
       setResults([]);
     }
@@ -96,7 +91,10 @@ const SearchBox = () => {
             <CommandGroup>
               {results
                 .map((movie) => (
-                  <div key={movie.id} className="flex gap-4 cursor-pointer">
+                  <div
+                    key={movie.movie_id}
+                    className="flex gap-4 cursor-pointer"
+                  >
                     <Image
                       src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
                       priority

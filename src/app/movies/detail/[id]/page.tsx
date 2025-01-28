@@ -1,16 +1,24 @@
-import React from "react";
+import { Metadata } from "next";
 
 import { getDetailMovie } from "@/services/apis/movies";
 import Container from "@/components/element/Container";
 import Detail from "@/modules/movies";
 
 interface DetailPageProps {
-  params: { id: number };
+  params: { id: string };
+}
+
+export async function generateMetadata({
+  params,
+}: DetailPageProps): Promise<Metadata> {
+  const movie = await getDetailMovie(Number(params.id));
+  return {
+    title: movie.title + " | CineStream",
+  };
 }
 
 const DetailPage = async ({ params }: DetailPageProps) => {
-  const { id } = await params;
-  const movie = await getDetailMovie(id);
+  const movie = await getDetailMovie(Number(params.id));
   return (
     <div>
       <Container>

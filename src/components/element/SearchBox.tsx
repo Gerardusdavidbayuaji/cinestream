@@ -41,9 +41,22 @@ const SearchBox = () => {
     }
   };
 
+  // const debouncedFetchMovies = useCallback(
+  //   debounce((searchQuery: string) => fetchMovies(searchQuery), 300),
+  //   [fetchMovies]
+  // );
+
   const debouncedFetchMovies = useCallback(
-    debounce((searchQuery: string) => fetchMovies(searchQuery), 300),
-    [fetchMovies]
+    debounce(async (searchQuery: string) => {
+      try {
+        const data = await getMovies({ title: searchQuery });
+        setResults(data.results || []);
+      } catch (error) {
+        console.error("Error fetching movies:", error);
+        setResults([]);
+      }
+    }, 300),
+    []
   );
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

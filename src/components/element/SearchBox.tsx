@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 
 import debounce from "lodash.debounce";
 
@@ -43,7 +43,7 @@ const SearchBox = () => {
 
   const debouncedFetchMovies = useCallback(
     debounce((searchQuery: string) => fetchMovies(searchQuery), 300),
-    []
+    [fetchMovies]
   );
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -1,7 +1,6 @@
 import React from "react";
 
-import { Response } from "@/cammon/types/api";
-import { Movie } from "@/services/apis/movies/type";
+import { Response, Movie } from "@/services/apis/movies/type";
 
 import Container from "@/components/element/Container";
 import NowPlaying from "./NowPlaying";

@@ -1,8 +1,7 @@
 import React from "react";
 import MovieList from "./movie/MovieList";
 import CarouselHeader from "./CarouselHeader";
-import { Response } from "@/cammon/types/api";
-import { Movie } from "@/services/apis/movies/type";
+import { Response, Movie } from "@/services/apis/movies/type";
 
 interface HomeProps {
   popular: Response<Movie[]> | null;

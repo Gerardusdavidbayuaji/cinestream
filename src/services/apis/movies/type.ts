@@ -5,7 +5,7 @@ export interface Request {
   page?: string | number;
 }
 
-export interface Response<T = any> {
+export interface Response<T = unknown> {
   dates: {
     maximum: string;
     minimum: string;

@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Movie } from "@/services/apis/movies";
-import { Response } from "@/cammon/types/api";
+import { Response } from "@/services/apis/movies";
 
 import MovieCard from "./MovieCard";
 import {

@@ -6,9 +6,17 @@ import Link from "next/link";
 import { MoonIcon, SunIcon, LucideHeart } from "lucide-react";
 
 import SearchBox from "@/components/element/SearchBox";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
   const { setTheme, theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
 
   function handleTheme() {
     const newTheme = theme === "light" ? "dark" : "light";

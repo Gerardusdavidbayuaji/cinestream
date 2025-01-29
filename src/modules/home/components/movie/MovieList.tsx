@@ -1,31 +1,36 @@
 import React from "react";
 
-import { Response, Movie } from "@/services/apis/movies/type";
-
 import Container from "@/components/element/Container";
+import { Separator } from "@/components/ui/separator";
 import NowPlaying from "./NowPlaying";
 import Upcoming from "./UpComing";
 import TopRated from "./TopRated";
 import Popular from "./Popular";
 
+import { Movie, Response } from "@/services/apis/movies";
+
 interface MovieListProps {
-  dataPopular: Response<Movie[]> | null;
-  dataNowPlaying: Response<Movie[]> | null;
-  dataTopRated: Response<Movie[]> | null;
-  dataUpcoming: Response<Movie[]> | null;
+  dataPopular: Response<Movie[]>;
+  dataNowPlaying: Response<Movie[]>;
+  dataTopRated: Response<Movie[]>;
+  dataUpcoming: Response<Movie[]>;
 }
 
-const MovieList = ({ dataPopular }: MovieListProps) => {
+export default function MovieList({
+  dataPopular,
+  dataNowPlaying,
+  dataTopRated,
+  dataUpcoming,
+}: MovieListProps) {
   return (
     <Container>
       <section className="space-y-20">
         <Popular datas={dataPopular} />
-        <NowPlaying />
-        <TopRated />
-        <Upcoming />
+        <Separator />
+        <NowPlaying datas={dataNowPlaying} />
+        <TopRated datas={dataTopRated} />
+        <Upcoming datas={dataUpcoming} />
       </section>
     </Container>
   );
-};
-
-export default MovieList;
+}

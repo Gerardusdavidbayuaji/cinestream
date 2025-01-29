@@ -5,7 +5,7 @@ import { Movie, Response } from "@/services/apis/movies/type";
 import MovieCardPages from "@/components/element/MovieCardPages";
 
 interface PopularProps {
-  datas: Response<Movie[]> | null;
+  datas: Response<Movie[]>;
 }
 
 const Popular = ({ datas }: PopularProps) => {

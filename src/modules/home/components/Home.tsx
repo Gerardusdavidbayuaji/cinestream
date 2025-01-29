@@ -1,27 +1,31 @@
 import React from "react";
 import MovieList from "./movie/MovieList";
-import CarouselHeader from "./CarouselHeader";
-import { Response, Movie } from "@/services/apis/movies/type";
 
-interface HomeProps {
-  popular: Response<Movie[]> | null;
-  nowPlaying: Response<Movie[]> | null;
-  topRated: Response<Movie[]> | null;
-  upcoming: Response<Movie[]> | null;
+import CarouselHeader from "./CarouselHeader";
+import { Movie, Response } from "@/services/apis/movies";
+
+interface HomePageProps {
+  popular: Response<Movie[]>;
+  now_playing: Response<Movie[]>;
+  top_rated: Response<Movie[]>;
+  upcoming: Response<Movie[]>;
 }
 
-const Home = ({ popular, nowPlaying, topRated, upcoming }: HomeProps) => {
+export default function HomePage({
+  popular,
+  now_playing,
+  top_rated,
+  upcoming,
+}: HomePageProps) {
   return (
     <>
       <CarouselHeader />
       <MovieList
         dataPopular={popular}
-        dataNowPlaying={nowPlaying}
-        dataTopRated={topRated}
+        dataNowPlaying={now_playing}
+        dataTopRated={top_rated}
         dataUpcoming={upcoming}
       />
     </>
   );
-};
-
-export default Home;
+}

@@ -1,11 +1,50 @@
 import React from "react";
 
-import { useSelector } from "react-redux";
-import { RootState } from "@/services/store/store";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
-import ContainerCard from "@/components/element/ContainerCard";
+import MovieCard from "@/components/element/MovieCard";
+import { Response, Movie } from "@/services/apis/movies";
 
-export default function TopRated() {
-  const topRated = useSelector((state: RootState) => state.movies.topRated);
-  return <ContainerCard title="Top Rated" datas={topRated} />;
+interface TopRatedProps {
+  datas: Response<Movie[]>;
+}
+
+export default function TopRated({ datas }: TopRatedProps) {
+  return (
+    <div>
+      <Carousel
+        opts={{
+          align: "start",
+          loop: true,
+        }}
+        className="w-full h-auto rounded-md"
+      >
+        <div className="flex items-center justify-between">
+          <p className="pl-4 border-l-4 border-red-600">Top Rated</p>
+          <div className="flex items-center gap-x-8">
+            <div>
+              <CarouselPrevious className="relative top-0 w-6 h-6 -left-2 -translate-y-0" />
+              <CarouselNext className="relative top-0 w-6 h-6 -right-0 -translate-y-0" />
+            </div>
+          </div>
+        </div>
+        <CarouselContent className="py-4">
+          {datas?.results.map((movie) => (
+            <CarouselItem
+              key={movie.id}
+              className="basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/6"
+            >
+              <MovieCard data={movie} href={`/movies/detail/${movie.id}`} />
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
+    </div>
+  );
 }

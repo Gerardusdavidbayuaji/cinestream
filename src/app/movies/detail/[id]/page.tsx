@@ -20,8 +20,10 @@ export async function generateMetadata({
 
 export default async function DetailMoviePage({
   params,
-}: DetailMoviePageProps) {
-  const movieId = await params;
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const movieId = await Promise.resolve(params);
   const movie = await getDetailMovie(Number(movieId.id));
   return (
     <>

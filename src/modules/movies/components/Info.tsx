@@ -18,11 +18,11 @@ import { MovieDetail } from "@/services/apis/movies";
 
 import { Button } from "@/components/ui/button";
 
-interface InfoProps {
+interface Props {
   data: MovieDetail;
 }
 
-const Info = ({ data: movie }: InfoProps) => {
+export default function Info({ data: movie }: Props) {
   const dispatch = useDispatch();
   const favorites = useSelector(
     (state: RootState) => state.favorites.favorites
@@ -110,6 +110,4 @@ const Info = ({ data: movie }: InfoProps) => {
       </div>
     </div>
   );
-};
-
-export default Info;
+}

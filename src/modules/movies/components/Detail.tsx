@@ -5,11 +5,11 @@ import { Separator } from "@/components/ui/separator";
 
 import { MovieDetail } from "@/services/apis/movies";
 
-interface DetailProps {
+interface Props {
   movie: MovieDetail;
 }
 
-const Detail = ({ movie }: DetailProps) => {
+export default function Detail({ movie }: Props) {
   return (
     <>
       <Trailer data={movie} />
@@ -17,6 +17,4 @@ const Detail = ({ movie }: DetailProps) => {
       <Info data={movie} />
     </>
   );
-};
-
-export default Detail;
+}

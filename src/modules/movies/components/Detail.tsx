@@ -1,7 +1,8 @@
 import React from "react";
+
+import { Separator } from "@/components/ui/separator";
 import Trailer from "./Trailer";
 import Info from "./Info";
-import { Separator } from "@/components/ui/separator";
 
 import { MovieDetail } from "@/services/apis/movies";
 

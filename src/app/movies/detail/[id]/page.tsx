@@ -4,12 +4,14 @@ import { getDetailMovie } from "@/services/apis/movies";
 import Container from "@/components/element/Container";
 import Detail from "@/modules/movies";
 
-type Props = {
-  params: { id: string };
-};
+interface DetailMoviePageProps {
+  params: { id: number };
+}
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const movieId = Number(params.id);
+export async function generateMetadata({
+  params,
+}: DetailMoviePageProps): Promise<Metadata> {
+  const movieId = params.id;
   const movie = await getDetailMovie(movieId);
 
   return {
@@ -17,9 +19,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-const DetailPage = async ({ params }: Props) => {
-  const movieId = Number(params.id);
-  const movie = await getDetailMovie(movieId);
+export default async function DetailPage({ params }: DetailMoviePageProps) {
+  // const movieId = params.id;
+  const movie = await getDetailMovie(params.id);
   return (
     <div>
       <Container>
@@ -27,6 +29,4 @@ const DetailPage = async ({ params }: Props) => {
       </Container>
     </div>
   );
-};
-
-export default DetailPage;
+}

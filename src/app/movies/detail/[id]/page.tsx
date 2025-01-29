@@ -5,14 +5,14 @@ import Detail from "@/modules/movies";
 import Container from "@/components/element/Container";
 
 type DetailMoviePageProps = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
 export async function generateMetadata({
   params,
 }: DetailMoviePageProps): Promise<Metadata> {
-  const movieId = await params;
-  const movie = await getDetailMovie(Number(movieId.id));
+  const idNumber = Number((await params).id);
+  const movie = await getDetailMovie(idNumber);
   return {
     title: movie.title + " | CineStream",
   };
@@ -20,11 +20,10 @@ export async function generateMetadata({
 
 export default async function DetailMoviePage({
   params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const movieId = await Promise.resolve(params);
-  const movie = await getDetailMovie(Number(movieId.id));
+}: DetailMoviePageProps) {
+  const idNumber = Number((await params).id);
+  const movie = await getDetailMovie(idNumber);
+
   return (
     <>
       <Container>

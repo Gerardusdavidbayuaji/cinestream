@@ -1,34 +1,49 @@
-import { Metadata } from "next";
+"use client";
 
-import { getDetailMovie } from "@/services/apis/movies";
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import { notFound } from "next/navigation";
+
 import Detail from "@/modules/movies";
 import Container from "@/components/element/Container";
+import axiosWithConfig from "@/services/apis/axiosWithConfig";
 
-type DetailMoviePageProps = {
-  params: Promise<{ id: string }>;
+const fetchMovieDetail = async (id: string) => {
+  try {
+    const response = await axiosWithConfig.get(
+      `/movie/${id}?append_to_response=videos`
+    );
+    return response.data;
+  } catch (error) {
+    return null;
+  }
 };
 
-export async function generateMetadata({
-  params,
-}: DetailMoviePageProps): Promise<Metadata> {
-  const idMovie = (await params).id;
-  const movie = await getDetailMovie(idMovie);
-  return {
-    title: movie.title + " | CineStream",
-  };
-}
+export default function DetailMoviePage() {
+  const { id } = useParams<{ id: string }>();
+  const [movie, setMovie] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-export default async function DetailMoviePage({
-  params,
-}: DetailMoviePageProps) {
-  const idMovie = (await params).id;
-  const movie = await getDetailMovie(idMovie);
+  useEffect(() => {
+    if (!id) return;
+
+    fetchMovieDetail(id).then((data) => {
+      setMovie(data);
+      setLoading(false);
+    });
+  }, [id]);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (!movie) {
+    return notFound();
+  }
 
   return (
-    <>
-      <Container>
-        <Detail movie={movie} />
-      </Container>
-    </>
+    <Container>
+      <Detail movie={movie} />
+    </Container>
   );
 }

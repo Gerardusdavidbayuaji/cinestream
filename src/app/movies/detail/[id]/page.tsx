@@ -14,7 +14,7 @@ const fetchMovieDetail = async (id: string) => {
       `/movie/${id}?append_to_response=videos`
     );
     return response.data;
-  } catch (error) {
+  } catch {
     return null;
   }
 };

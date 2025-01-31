@@ -11,7 +11,7 @@ export const getMoviesbyList = async (params?: Request) => {
   return response.data as Response<Movie[]>;
 };
 
-export const getDetailMovie = async (movie_id: string) => {
+export const getDetailMovie = async (movie_id: number | string) => {
   const response = await axiosWithConfig.get(
     `/movie/${movie_id}?append_to_response=videos`
   );

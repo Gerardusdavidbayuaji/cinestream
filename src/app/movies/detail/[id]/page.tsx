@@ -12,7 +12,7 @@ export async function generateMetadata({
   params,
 }: DetailMoviePageProps): Promise<Metadata> {
   const { id } = await params;
-  const movie = await getDetailMovie(id);
+  const movie = await getDetailMovie(Number(id));
   return {
     title: movie.title + " | CineStream",
   };
@@ -22,7 +22,7 @@ export default async function DetailMoviePage({
   params,
 }: DetailMoviePageProps) {
   const { id } = await params;
-  const movie = await getDetailMovie(id);
+  const movie = await getDetailMovie(Number(id));
 
   return (
     <>

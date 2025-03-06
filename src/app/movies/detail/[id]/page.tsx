@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 import { getDetailMovie } from "@/services/apis/movies";
-import Detail from "@/modules/movies";
+import Detail from "@/modules/movies/components/Detail";
 import Container from "@/components/element/Container";
 
 type DetailMoviePageProps = {

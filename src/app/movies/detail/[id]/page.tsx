@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 
 import { getDetailMovie } from "@/services/apis/movies";
-import Detail from "@/modules/movies/components/Detail";
 import Container from "@/components/element/Container";
+import Detail from "@/modules/movies";
 
 type DetailMoviePageProps = {
   params: Promise<{ id: string }>;

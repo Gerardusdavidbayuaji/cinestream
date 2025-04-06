@@ -9,7 +9,7 @@ import SearchBox from "@/components/element/SearchBox";
 import { useEffect, useState } from "react";
 
 export default function Navbar() {
-  const { setTheme, theme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {

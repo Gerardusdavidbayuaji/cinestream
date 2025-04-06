@@ -24,6 +24,7 @@ export default async function DetailMoviePage({
   const { id } = await params;
   const movie = await getDetailMovie(Number(id));
   console.log("tampilkan id", id);
+  console.log("tampilkan hasil fetching", movie);
 
   return (
     <>
